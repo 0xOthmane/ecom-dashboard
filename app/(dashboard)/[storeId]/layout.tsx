@@ -1,6 +1,7 @@
 import { getUserAuth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import db from "@/lib/db";
+import Navbar from "@/components/organisms/Navbar";
 export default async function DashboardLayout({
   children,
   params,
@@ -19,7 +20,7 @@ export default async function DashboardLayout({
   if (!store) redirect("/");
   return (
     <>
-      <div>This will be a Navbar</div>
+      <Navbar />
       {children}
     </>
   );
