@@ -11,6 +11,7 @@ export default async function SetupLayout({
   if (!user) {
     redirect("/login");
   }
+  const billboard = await db.billboard.findFirst()
   const store = await db.store.findFirst({
     where: {
       userId: user.id!,
