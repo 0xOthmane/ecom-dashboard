@@ -1,11 +1,13 @@
 "use client";
 
-import toast from "react-hot-toast";
-import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-import { BillboardColumn } from "@/components/molecules/Columns";
+import AlertModal from "@/components/molecules/AlertModal";
+import { CategoryColumn } from "@/components/molecules/Columns";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,15 +15,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import AlertModal from "@/components/molecules/AlertModal";
 
-interface CellActionProps {
-  data: BillboardColumn;
+interface CategoryCellActionProps {
+  data: CategoryColumn;
 }
 
-const CellAction: React.FC<CellActionProps> = ({ data }) => {
+const CategoryCellAction: React.FC<CategoryCellActionProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -30,19 +30,19 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard ID copied to the clipboard");
+    toast.success("Category ID copied to the clipboard");
   };
 
   const onDelete = async () => {
     try {
       setLoading(true);
       await axios.delete(
-        `/api/${params.storeId}/billboards/${data.id}`
+        `/api/${params.storeId}/categories/${data.id}`
       );
       router.refresh();
-      toast.success("Billboard deleted");
+      toast.success("Category deleted");
     } catch (error) {
-      toast.error("Make sure you removed all categories first.");
+      toast.error("Make sure you removed all products using this category first.");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -87,4 +87,4 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
   );
 };
 
-export default CellAction;
+export default CategoryCellAction;

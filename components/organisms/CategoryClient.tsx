@@ -6,40 +6,40 @@ import Heading from "@/components/atoms/Heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
-  BillboardColumn,
-  billboardColumns,
+  CategoryColumn,
+  categoriesColumns,
 } from "@/components/molecules/Columns";
 import { DataTable } from "@/components/molecules/DataTable";
 import ApiList from "@/components/molecules/ApiList";
 
-interface BillboardClientProps {
-  data: BillboardColumn[];
+interface CategoryClientProps {
+  data: CategoryColumn[];
 }
 
-const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
+const CategoryClient: React.FC<CategoryClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Billboards (${data.length})`}
-          description="Manage billborads for your store"
+          title={`Categories (${data.length})`}
+          description="Manage categories for your store"
         />
         <Button
-          onClick={() => router.push(`/${params.storeId}/billboards/new`)}
+          onClick={() => router.push(`/${params.storeId}/categories/new`)}
         >
           <Plus className="mr-2 h-4 w-4" />
           Add New
         </Button>
       </div>
       <Separator />
-      <DataTable columns={billboardColumns} data={data} searchKey="label" />
-      <Heading title="API" description="API calls for Billboards" />
+      <DataTable columns={categoriesColumns} data={data} searchKey="name" />
+      <Heading title="API" description="API calls for Categories" />
       <Separator />
-      <ApiList entityName="billboards" entityIdName="billboardId" />
+      <ApiList entityName="categories" entityIdName="categoryId" />
     </>
   );
 };
 
-export default BillboardClient;
+export default CategoryClient;
