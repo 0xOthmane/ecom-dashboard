@@ -1,6 +1,5 @@
 "use client";
 
-import { useOrigin } from "@/hooks/useOrigin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Billboard } from "@prisma/client";
 import axios from "axios";
@@ -40,7 +39,6 @@ const formSchema = z.object({
 const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
-  const origin = useOrigin();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -82,7 +80,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
       router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard deleted");
     } catch (error) {
       toast.error("Make sure you removed all categories first.");
@@ -161,7 +159,6 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };
