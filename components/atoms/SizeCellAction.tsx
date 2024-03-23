@@ -6,7 +6,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 import AlertModal from "@/components/molecules/AlertModal";
-import { CategoryColumn } from "@/components/molecules/Columns";
+import { SizeColumn } from "@/components/molecules/Columns";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,11 +17,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 
-interface CategoryCellActionProps {
-  data: CategoryColumn;
+interface SizeCellActionProps {
+  data: SizeColumn;
 }
 
-const CategoryCellAction: React.FC<CategoryCellActionProps> = ({ data }) => {
+const SizeCellAction: React.FC<SizeCellActionProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -36,13 +36,13 @@ const CategoryCellAction: React.FC<CategoryCellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(
-        `/api/${params.storeId}/categories/${data.id}`
-      );
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
       router.refresh();
       toast.success("Category deleted");
     } catch (error) {
-      toast.error("Make sure you removed all products using this category first.");
+      toast.error(
+        "Make sure you removed all products using this category first."
+      );
     } finally {
       setLoading(false);
       setOpen(false);
@@ -87,4 +87,4 @@ const CategoryCellAction: React.FC<CategoryCellActionProps> = ({ data }) => {
   );
 };
 
-export default CategoryCellAction;
+export default SizeCellAction;
