@@ -55,8 +55,6 @@ export const categoriesColumns: ColumnDef<CategoryColumn>[] = [
   },
 ];
 
-
-
 export type SizeColumn = {
   id: string;
   name: string;
@@ -72,6 +70,41 @@ export const sizesColumns: ColumnDef<SizeColumn>[] = [
   {
     accessorKey: "value",
     header: "Value",
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Date",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <SizeCellAction data={row.original} />,
+  },
+];
+
+export type ColorColumn = {
+  id: string;
+  name: string;
+  value: string;
+  createdAt: string;
+};
+
+export const colorsColumns: ColumnDef<ColorColumn>[] = [
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "value",
+    header: "Value",
+    cell: ({ row }) => (
+      <div className="flex items-center gap-x-2">
+        {row.original.value}
+        <div
+          className="h-6 w-6 rounded-full border"
+          style={{ backgroundColor: row.original.value }}
+        />
+      </div>
+    ),
   },
   {
     accessorKey: "createdAt",
